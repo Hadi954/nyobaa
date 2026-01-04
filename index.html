@@ -27,9 +27,6 @@
             overflow: hidden;
         }
         
-
-        const MUSIK_URL = 'EXO - 나비소녀 (Don't Go).mp3';
-        
         @keyframes gradientShift {
             0%,
             100% {
@@ -472,6 +469,13 @@
 </head>
 
 <body>
+     <!-- BACKGROUND MUSIC -->
+    <audio id="bgMusic" autoplay loop muted>
+        <source src="EXO - 나비소녀 (Don't Go).mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="sparkles" id="sparklesBackground"></div>
+    <div class="hearts-bg" id="heartsBackground"></div>
     <div class="sparkles" id="sparklesBackground"></div>
     <div class="hearts-bg" id="heartsBackground"></div>
 
@@ -749,6 +753,15 @@
     </div>
 
     <script>
+           createHearts();
+    createSparkles();
+
+    const music = document.getElementById("bgMusic");
+
+    document.addEventListener("click", () => {
+        music.muted = false;
+        music.play();
+    }, { once: true });
         // Floating hearts
         function createHearts() {
             const container = document.getElementById('heartsBackground');
@@ -791,6 +804,7 @@
         createHearts();
         createSparkles();
     </script>
+    
 </body>
 
 </html>
