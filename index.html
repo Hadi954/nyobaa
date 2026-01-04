@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Kamu 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #FFB6C1 0%, #FFDAE0 25%, #FFF0F5 50%, #E6E6FA 75%, #FFB6C1 100%);
+            background-size: 400% 400%;
+            background-attachment: fixed;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes gradientShift {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .sparkles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .sparkle {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: sparkleFloat 6s infinite;
+        }
+        
+        @keyframes sparkleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg) scale(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(360deg) scale(1);
+            }
+        }
+        
+        .hearts-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatHeart 8s infinite;
+        }
+        
+        @keyframes floatHeart {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(0deg);
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+        
+        .container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 250, 252, 0.98) 100%);
+            border-radius: 35px;
+            padding: 45px 35px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.35), 0 10px 30px rgba(221, 160, 221, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            animation: slideUp 0.8s ease-out, float 6s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .container::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #FFB6C1, #FFC0CB, #FFD1DC, #E6E6FA, #DDA0DD, #FF69B4, #FFB6C1);
+            border-radius: 35px;
+            z-index: -1;
+            animation: rotateBorder 6s linear infinite;
+            background-size: 400% 400%;
+            filter: blur(1px);
+        }
+        
+        @keyframes rotateBorder {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 192, 203, 0.15), transparent);
+            animation: shine 4s infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .screen {
+            display: none;
+            text-align: center;
+            position: relative;
+        }
+        
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.6s;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .emoji {
+            font-size: 100px;
+            margin-bottom: 25px;
+            animation: bounce 2s infinite, sway 3s infinite, glow 2s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes glow {
+            0%,
+            100% {
+                filter: drop-shadow(0 8px 20px rgba(255, 105, 180, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 8px 30px rgba(255, 105, 180, 0.8)) drop-shadow(0 0 40px rgba(221, 160, 221, 0.6));
+            }
+        }
+        
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(8deg);
+            }
+        }
+        
+        @keyframes sway {
+            0%,
+            100% {
+                transform: rotate(-3deg);
+            }
+            50% {
+                transform: rotate(3deg);
+            }
+        }
+        
+        h2 {
+            background: linear-gradient(135deg, #FF69B4, #DDA0DD, #FFB6C1, #FF69B4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2em;
+            margin-bottom: 20px;
+            animation: gradient 3s infinite;
+            background-size: 200% 200%;
+        }
+        
+        @keyframes gradient {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        p {
+            color: #666;
+            font-size: 1.15em;
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+        
+        .highlight {
+            color: #FF69B4;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #FFB6C1, transparent);
+            animation: underline 2s infinite;
+        }
+        
+        @keyframes underline {
+            0%,
+            100% {
+                width: 0%;
+            }
+            50% {
+                width: 100%;
+            }
+        }
+        
+        .btn {
+            padding: 16px 45px;
+            font-size: 1.15em;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 105, 180, 0.6);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-wa {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+        
+        .btn-wa:hover {
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+        }
+        
+        .progress {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #FFE4E1;
+            transition: all 0.4s;
+        }
+        
+        .dot.active {
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            width: 25px;
+            border-radius: 4px;
+            box-shadow: 0 3px 10px rgba(255, 105, 180, 0.5);
+        }
+        
+        .love-meter {
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .meter-label {
+            font-size: 0.9em;
+            color: #999;
+            margin-bottom: 8px;
+        }
+        
+        .meter-bar {
+            background: #FFE4E1;
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FFB6C1, #FF69B4);
+            border-radius: 10px;
+            animation: fillMeter 2s ease-out forwards;
+            width: 0;
+        }
+        
+        @keyframes fillMeter {
+            to {
+                width: 100%;
+            }
+        }
+        
+        .heart-icon {
+            margin: 20px 0;
+            font-size: 50px;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes heartbeat {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            10%,
+            30% {
+                transform: scale(1.15);
+            }
+            20%,
+            40% {
+                transform: scale(1.1);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 35px 25px;
+            }
+            h2 {
+                font-size: 1.7em;
+            }
+            p {
+                font-size: 1.05em;
+            }
+            .emoji {
+                font-size: 80px;
+            }
+            .btn {
+                padding: 14px 35px;
+                font-size: 1.05em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sparkles" id="sparklesBackground"></div>
+    <div class="hearts-bg" id="heartsBackground"></div>
+
+    <div class="container">
+        <!-- Slide 1 -->
+        <div class="screen active" id="screen1">
+            <div class="emoji">💌</div>
+            <h2>Hey Kamu...</h2>
+            <p>
+                Ada yang pengen aku bilang nih.<br> Udah lama pengen ngomong ini.
+            </p>
+            <div class="love-meter">
+                <div class="meter-label">Loading perasaan...</div>
+                <div class="meter-bar">
+                    <div class="meter-fill"></div>
+                </div>
+            </div>
+            <button class="btn" onclick="next(2)">
+                <span>Buka Pesan ✉️</span>
+            </button>
+            <div class="progress">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="screen" id="screen2">
+            <div class="emoji">✨</div>
+            <h2>Kamu Tau Gak?</h2>
+            <p>
+                Dari sekian banyak orang di dunia ini,<br>
+                <span class="highlight">aku pilih kamu</span>.<br><br> Bukan karena kebetulan.<br> Tapi karena ada sesuatu yang beda dari kamu.
+            </p>
+            <div class="heart-icon">💖</div>
+            <button class="btn" onclick="next(3)">
+                <span>Lanjut 💫</span>
+            </button>
+            <div class="progress">
+                <div class="dot"></div>
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="screen" id="screen3">
+            <div class="emoji">🌟</div>
+            <h2>Kamu Spesial</h2>
+            <p>
+                Setiap senyum kamu,<br> setiap tawa kamu,<br> setiap hal kecil yang kamu lakuin...<br><br>
+                <span class="highlight">Semuanya berarti</span> buat aku.
+            </p>
+            <button class="btn" onclick="next(4)">
+                <span>Lanjut 🌸</span>
+            </button>
+            <div class="progress">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="screen" id="screen4">
+            <div class="emoji">🦋</div>
+            <h2>Setiap Hari...</h2>
+            <p>
+                Aku selalu <span class="highlight">mikirin kamu</span>.<br> Dari bangun tidur sampe tidur lagi.<br><br> Kadang aku senyum sendiri<br> karena kepikiran kamu.
+            </p>
+            <div class="heart-icon">💭</div>
+            <button class="btn" onclick="next(5)">
+                <span>Lanjut 💕</span>
+            </button>
+            <div class="progress">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="screen" id="screen5">
+            <div class="emoji">🌸</div>
+            <h2>Aku Bersyukur...</h2>
+            <p>
+                Bersyukur banget bisa <span class="highlight">kenal kamu</span>.<br> Bersyukur kamu ada di hidup aku.<br><br> Kamu bikin hari-hari aku<br> jadi lebih berwarna.
+            </p>
+            <div class="love-meter">
+                <div class="meter-label">Tingkat bersyukur: 100%</div>
+                <div class="meter-bar">
+                    <div class="meter-fill"></div>
+                </div>
+            </div>
+            <button class="btn" onclick="next(6)">
+                <span>Lanjut 🌈</span>
+            </button>
+            <div class="progress">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="screen" id="screen6">
+            <div class="emoji">💫</div>
+            <h2>Kamu Bikin...</h2>
+            <p>
+                Kamu bikin aku pengen jadi <span class="highlight">lebih baik</span>.<br> Pengen kasih yang terbaik buat kamu.<br><br> Karena kamu deserve<br> semua kebahagiaan di dunia ini.
+            </p>
+            <div class="heart-icon">🌟</div>
+            <button class="btn" onclick="next(7)">
+                <span>Lanjut ✨</span>
+            </button>
+            <div class="progress">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="screen" id="screen7">
+            <div class="emoji">🌙</div>
+            <h2>Kamu Itu...</h2>
+            <p>
+                Seperti <span class="highlight">bintang</span> yang selalu bersinar.<br> Menerangi hari-hari aku<br> yang kadang gelap.<br><br> Kamu cahaya buat aku.
+            </p>
+            <button class="btn" onclick="next(8)">
+                <span>Lanjut 🌟</span>
+            </button>
+            <div class="progress">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="screen" id="screen8">
+            <div class="emoji">🎀</div>
+            <h2>Tanpa Kamu...</h2>
+            <p>
+                Aku gak bisa bayangin<br> gimana jadinya hidup aku<br>
+                <span class="highlight">tanpa kamu</span>.<br><br> Kamu udah jadi bagian<br> penting dalam hidup aku.
+            </p>
+            <div class="heart-icon">💝</div>
+            <button class="btn" onclick="next(9)">
+                <span>Lanjut 💖</span>
+            </button>
+            <div class="progress">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="screen" id="screen9">
+            <div class="emoji">🎈</div>
+            <h2>Aku Berharap...</h2>
+            <p>
+                Kita bisa <span class="highlight">terus bareng</span>.<br> Lewatin semua hal bareng.<br> Seneng bareng, sedih bareng.<br><br> Aku pengen kamu ada<br> di setiap chapter hidup aku.
+            </p>
+            <div class="love-meter">
+                <div class="meter-label">Tingkat harapan: ∞</div>
+                <div class="meter-bar">
+                    <div class="meter-fill"></div>
+                </div>
+            </div>
+            <button class="btn" onclick="next(10)">
+                <span>Pesan Terakhir 💌</span>
+            </button>
+            <div class="progress">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot active"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- Slide 10 -->
+        <div class="screen" id="screen10">
+            <div class="emoji">💖</div>
+            <h2>Yang Paling Penting...</h2>
+            <p style="font-size: 1.3em; line-height: 2;">
+                <span class="highlight" style="font-size: 1.2em;">Aku sayang banget sama kamu</span><br><br> Makasih udah jadi kamu.<br> Makasih udah ada buat aku.
+            </p>
+            <div class="love-meter">
+                <div class="meter-label">Level sayang: MAX ∞</div>
+                <div class="meter-bar">
+                    <div class="meter-fill"></div>
+                </div>
+            </div>
+            <button class="btn btn-wa" onclick="chat()">
+                <span>Chat Aku 💬</span>
+            </button>
+            <div class="progress">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot active"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Floating hearts
+        function createHearts() {
+            const container = document.getElementById('heartsBackground');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = ['💕', '🌸', '🦋', '✨', '💖', '🌟'][Math.floor(Math.random() * 6)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(heart);
+                setTimeout(() => heart.remove(), 10000);
+            }, 600);
+        }
+
+        // Floating sparkles
+        function createSparkles() {
+            const container = document.getElementById('sparklesBackground');
+            setInterval(() => {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.textContent = ['✨', '⭐', '💫', '🌟'][Math.floor(Math.random() * 4)];
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 8000);
+            }, 800);
+        }
+
+        function next(screenNum) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen' + screenNum).classList.add('active');
+        }
+
+        function chat() {
+            window.open('https://wa.me/6285179722039?text=Aku%20sayang%20kamu%20%F0%9F%A5%B0%F0%9F%92%95', '_blank');
+        }
+
+        createHearts();
+        createSparkles();
+    </script>
+</body>
+
+</html>
