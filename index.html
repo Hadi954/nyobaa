@@ -14,7 +14,13 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #FFB6C1 0%, #FFDAE0 25%, #FFF0F5 50%, #E6E6FA 75%, #FFB6C1 100%);
+            background: linear-gradient(135deg, 
+                #FFB6C1 0%, 
+                #FFDAE0 25%,
+                #FFF0F5 50%,
+                #E6E6FA 75%,
+                #FFB6C1 100%
+            );
             background-size: 400% 400%;
             background-attachment: fixed;
             animation: gradientShift 15s ease infinite;
@@ -28,8 +34,7 @@
         }
         
         @keyframes gradientShift {
-            0%,
-            100% {
+            0%, 100% {
                 background-position: 0% 50%;
             }
             50% {
@@ -110,7 +115,9 @@
             padding: 45px 35px;
             max-width: 480px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.35), 0 10px 30px rgba(221, 160, 221, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.35), 
+                        0 10px 30px rgba(221, 160, 221, 0.25),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.9);
             animation: slideUp 0.8s ease-out, float 6s ease-in-out infinite;
             position: relative;
             z-index: 1;
@@ -120,8 +127,7 @@
         }
         
         @keyframes float {
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0px);
             }
             50% {
@@ -136,7 +142,9 @@
             left: -3px;
             right: -3px;
             bottom: -3px;
-            background: linear-gradient(45deg, #FFB6C1, #FFC0CB, #FFD1DC, #E6E6FA, #DDA0DD, #FF69B4, #FFB6C1);
+            background: linear-gradient(45deg, 
+                #FFB6C1, #FFC0CB, #FFD1DC, #E6E6FA, 
+                #DDA0DD, #FF69B4, #FFB6C1);
             border-radius: 35px;
             z-index: -1;
             animation: rotateBorder 6s linear infinite;
@@ -218,12 +226,12 @@
         }
         
         @keyframes glow {
-            0%,
-            100% {
+            0%, 100% {
                 filter: drop-shadow(0 8px 20px rgba(255, 105, 180, 0.5));
             }
             50% {
-                filter: drop-shadow(0 8px 30px rgba(255, 105, 180, 0.8)) drop-shadow(0 0 40px rgba(221, 160, 221, 0.6));
+                filter: drop-shadow(0 8px 30px rgba(255, 105, 180, 0.8)) 
+                        drop-shadow(0 0 40px rgba(221, 160, 221, 0.6));
             }
         }
         
@@ -284,8 +292,7 @@
         }
         
         @keyframes pulse {
-            0%,
-            100% {
+            0%, 100% {
                 transform: scale(1);
             }
             50% {
@@ -447,6 +454,34 @@
             }
         }
         
+        .photo-frame {
+            width: 220px;
+            height: 220px;
+            margin: 25px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+            border: 5px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #FFB6C1, #FF69B4, #DDA0DD) border-box;
+            animation: photoGlow 3s infinite;
+        }
+        
+        @keyframes photoGlow {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+            }
+            50% {
+                box-shadow: 0 15px 45px rgba(255, 105, 180, 0.7);
+            }
+        }
+        
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         @media (max-width: 480px) {
             .container {
                 padding: 35px 25px;
@@ -464,18 +499,15 @@
                 padding: 14px 35px;
                 font-size: 1.05em;
             }
+            .photo-frame {
+                width: 170px;
+                height: 170px;
+            }
         }
     </style>
 </head>
 
 <body>
-     <!-- BACKGROUND MUSIC -->
-    <audio id="bgMusic" autoplay loop muted>
-        <source src="lagu.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="sparkles" id="sparklesBackground"></div>
-    <div class="hearts-bg" id="heartsBackground"></div>
     <div class="sparkles" id="sparklesBackground"></div>
     <div class="hearts-bg" id="heartsBackground"></div>
 
@@ -536,10 +568,16 @@
             </div>
         </div>
 
-        <!-- Slide 3 -->
+        <!-- Slide 3 dengan Foto -->
         <div class="screen" id="screen3">
             <div class="emoji">🌟</div>
             <h2>Kamu Spesial</h2>
+            
+            <!-- FOTO MUNCUL DI SINI -->
+            <div class="photo-frame">
+                <img src="" id="lovePhoto" alt="Foto Kamu">
+            </div>
+            
             <p>
                 Setiap senyum kamu,<br> setiap tawa kamu,<br> setiap hal kecil yang kamu lakuin...<br><br>
                 <span class="highlight">Semuanya berarti</span> buat aku.
@@ -753,15 +791,13 @@
     </div>
 
     <script>
-           createHearts();
-    createSparkles();
+        // ===== GANTI LINK FOTO DI SINI =====
+        const FOTO_URL = 'https://i.imgur.com/contoh-foto.jpg';
+        // ===================================
+        
+        // Load foto
+        document.getElementById('lovePhoto').src = FOTO_URL;
 
-    const music = document.getElementById("bgMusic");
-
-    document.addEventListener("click", () => {
-        music.muted = false;
-        music.play();
-    }, { once: true });
         // Floating hearts
         function createHearts() {
             const container = document.getElementById('heartsBackground');
@@ -804,7 +840,6 @@
         createHearts();
         createSparkles();
     </script>
-    
 </body>
 
 </html>
